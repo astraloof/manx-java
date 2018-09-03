@@ -1,28 +1,31 @@
-package net.astur.hotlynx;
+package net.astraloof.manx;
 
 import java.io.IOException;
 
 import com.synthbot.jasiohost.AsioChannel;
 
-import net.astur.hotlynx.engine.AudioEngine;
+import net.astraloof.manx.engine.AudioEngine;
 
-public class HotLynx
+public class Manx
 {
-	public static final HotLynx instance = new HotLynx();
-	private Logger log = new Logger(HotLynx.class);
+	public static final Manx instance = new Manx();
+	public static final String APP_NAME = "Manx";
+	public static final String APP_VERS = "1.0.0-M1";
+	private Logger log = new Logger(Manx.class);
 	
 	AsioChannel outL, outR;
 	AudioEngine engine;
 	
 	public static void main(String[] args)
 	{
-		System.setProperty("java.library.path", "./natives");
+//		System.setProperty("java.library.path", "natives");
+		System.setProperty("sun.java2d.opengl", "true");
 		instance.start(args);
 	}
 	
 	public void start(String[] args)
 	{
-		log.info("HotLynx 1.0.0-SNAPSHOT");
+		log.info(APP_NAME + " " + APP_VERS);
 		log.info("Initializing audio engine");
 		
 		engine = new AudioEngine();

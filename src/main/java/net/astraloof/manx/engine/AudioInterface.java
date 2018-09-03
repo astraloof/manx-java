@@ -1,4 +1,4 @@
-package net.astur.hotlynx.engine;
+package net.astraloof.manx.engine;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -8,7 +8,7 @@ import java.util.Set;
 import com.synthbot.jasiohost.AsioChannel;
 import com.synthbot.jasiohost.AsioDriver;
 
-import net.astur.hotlynx.Logger;
+import net.astraloof.manx.Logger;
 
 public class AudioInterface
 {

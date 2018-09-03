@@ -1,4 +1,4 @@
-package net.astur.hotlynx.engine;
+package net.astraloof.manx.engine;
 
 import java.util.List;
 import java.util.Set;
@@ -8,7 +8,7 @@ import com.synthbot.jasiohost.AsioChannel;
 import com.synthbot.jasiohost.AsioDriver;
 import com.synthbot.jasiohost.AsioDriverListener;
 
-import net.astur.hotlynx.Logger;
+import net.astraloof.manx.Logger;
 
 public class AudioEngine implements AsioDriverListener
 {

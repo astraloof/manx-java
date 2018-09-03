@@ -1,4 +1,4 @@
-package net.astur.hotlynx;
+package net.astraloof.manx;
 
 import java.util.logging.Level;
 
