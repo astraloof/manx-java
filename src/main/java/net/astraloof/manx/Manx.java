@@ -2,9 +2,10 @@ package net.astraloof.manx;
 
 import java.io.IOException;
 
-import com.synthbot.jasiohost.AsioChannel;
-
 import net.astraloof.manx.engine.AudioEngine;
+import net.astraloof.manx.route.Channel;
+import net.astraloof.manx.route.InputReceive;
+import net.astraloof.manx.route.OutputChannel;
 
 public class Manx
 {
@@ -13,8 +14,7 @@ public class Manx
 	public static final String APP_VERS = "1.0.0-M1";
 	private Logger log = new Logger(Manx.class);
 	
-	AsioChannel outL, outR;
-	AudioEngine engine;
+	public AudioEngine engine;
 	
 	public static void main(String[] args)
 	{
@@ -32,7 +32,20 @@ public class Manx
 		String[] driverNames = engine.getDriverNames();
 		engine.setDevice(driverNames[1]);
 		engine.initialize();
-		engine.getDevice().getAsioDriver().openControlPanel();
+		engine.device.getAsioDriver().openControlPanel();
+		
+		engine.outputs = new OutputChannel[engine.outputBuffers.length];
+		for (int i = 0; i < engine.outputs.length; i ++)
+			engine.outputs[i] = new OutputChannel(i);
+		engine.channels = new Channel[engine.inputBuffers.length];
+		
+		for (int i = 0; i < engine.channels.length; i ++)
+		{
+			engine.channels[i] = new Channel();
+			engine.channels[i].receives.add(new InputReceive(i));
+			for (OutputChannel target : engine.outputs)
+				engine.channels[i].createSend(target);
+		}
 		
 		try
 		{
@@ -43,7 +56,8 @@ public class Manx
 			e.printStackTrace();
 		}
 		
-		engine.getDevice().release();
+		engine.halted = true;
+		engine.device.release();
 		log.info("Bye-bye");
 	}
 }
