@@ -27,9 +27,7 @@ public class Channel implements Serializable
 		if (lastMix < samplePosition)
 		{
 			for (AudioSend send : sends)
-			{
 				send.checkedFlush(samplePosition);
-			}
 			
 			for (ChannelSend receive : receives)
 			{

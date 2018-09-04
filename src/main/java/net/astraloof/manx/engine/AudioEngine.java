@@ -30,11 +30,11 @@ public class AudioEngine implements AsioDriverListener
 		log.log(Level.INFO, "Switching to device '" + deviceName + "'");
 		device = new AudioInterface(deviceName);
 		
-		if (device.getAsioDriver() == null)
+		if (device.asioDriver == null)
 			log.log(Level.WARNING, "Device driver failed to load");
 		else
 		{
-			device.getAsioDriver().addAsioDriverListener(this);
+			device.asioDriver.addAsioDriverListener(this);
 //			device.createAllBuffers();
 //			device.start();
 		}
@@ -50,13 +50,13 @@ public class AudioEngine implements AsioDriverListener
 	
 	public void initialize()
 	{
-		device.getAsioDriver().addAsioDriverListener(this);
+		device.asioDriver.addAsioDriverListener(this);
 		device.createAllBuffers();
 		device.start();
 		
 		int preferred = device.getBufferSize();
-		inputBuffers = new float[device.getInputs().size()][preferred];
-		outputBuffers = new float[device.getOutputs().size()][preferred];
+		inputBuffers = new float[device.inputs.size()][preferred];
+		outputBuffers = new float[device.outputs.size()][preferred];
 	}
 	
 	public void setSampleRate(double sampleRate)
@@ -76,7 +76,7 @@ public class AudioEngine implements AsioDriverListener
 	public void resetRequest()
 	{
 		log.info("Reset request received, resetting engine");
-		setDevice(device.getAsioDriver().getName());
+		setDevice(device.asioDriver.getName());
 		initialize();
 	}
 
@@ -103,13 +103,13 @@ public class AudioEngine implements AsioDriverListener
 	{
 		if (!halted)
 		{
-			List<AsioChannel> ins = device.getInputs();
-			List<AsioChannel> outs = device.getOutputs();
+			List<AsioChannel> ins = device.inputs;
+			List<AsioChannel> outs = device.outputs;
 			
 			// Swap input buffers
 			for (int i = 0; i < ins.size(); i ++)
 				ins.get(i).read(inputBuffers[i]);
-			
+
 			// Recursive mix (replace with channel mixing)
 //			for (int buf = 0; buf < bS; buf ++)
 //				for (int in = 0; in < ins.size(); in ++)

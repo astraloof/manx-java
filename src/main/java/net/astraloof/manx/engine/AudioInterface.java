@@ -14,10 +14,10 @@ public class AudioInterface
 {
 	private Logger log = new Logger(AudioInterface.class);
 	
-	private AsioDriver asioDriver = null;
+	public AsioDriver asioDriver = null;
 	
-	private List<AsioChannel> inputs = new LinkedList<>();
-	private List<AsioChannel> outputs = new LinkedList<>();
+	public List<AsioChannel> inputs = new LinkedList<>();
+	public List<AsioChannel> outputs = new LinkedList<>();
 	
 	public AudioInterface(AsioDriver asioDriver)
 	{
@@ -93,20 +93,5 @@ public class AudioInterface
 	{
 		log.info("Starting device ASIO driver");
 		asioDriver.start();
-	}
-	
-	public AsioDriver getAsioDriver()
-	{
-		return asioDriver;
-	}
-	
-	public List<AsioChannel> getInputs()
-	{
-		return inputs;
-	}
-	
-	public List<AsioChannel> getOutputs()
-	{
-		return outputs;
 	}
 }

@@ -31,8 +31,9 @@ public class Manx
 		engine = new AudioEngine();
 		String[] driverNames = engine.getDriverNames();
 		engine.setDevice(driverNames[1]);
+		engine.setSampleRate(44100);
 		engine.initialize();
-		engine.device.getAsioDriver().openControlPanel();
+		engine.device.asioDriver.openControlPanel();
 		
 		engine.outputs = new OutputChannel[engine.outputBuffers.length];
 		for (int i = 0; i < engine.outputs.length; i ++)
@@ -49,7 +50,7 @@ public class Manx
 		
 		try
 		{
-			log.info("ENTERING ETERNAL STASUS, enter anything to end");
+			log.info("ENTERING ETERNAL STASIS, enter anything to end");
 			System.in.read();
 		} catch (IOException e)
 		{
